@@ -4,29 +4,30 @@
 #include <string>
 #include <vector>
 
-namespace fs = std::filesystem;
 using string = std::string;
 
 namespace lutop {
-    struct Process {
-        string ID{"-1"};
-        string Info{""};
+    struct Proc {
+        string id {"-1"};
+        string procName {"unknownName"};
+        string procState {"unknownState"};
+        string procVmSize {"unknownVmSize"};
     };
 
-    struct Processes {
-        int quantityProcesses{0};
-        std::vector<Process> processList{};
-        std::vector<Process>::iterator begin() { return processList.begin(); }
-        std::vector<Process>::iterator end() { return processList.end(); }
+    struct Procs {
+        int quantityProcesses {0};
+        std::vector<Proc> processList {};
+        std::vector<Proc>::iterator begin() { return processList.begin(); }
+        std::vector<Proc>::iterator end() { return processList.end(); }
     };
 
     class Parser {
       public:
-        Processes getProcesses();
-        Processes getProcess();
-        void printProcesses(Processes processes);
+        Procs getProcs();
+        Procs getProc();
+        void printProcesses(Procs processes);
 
       private:
-        fs::path m_procPath{"/proc"};
+        std::filesystem::path m_procPath {"/proc"};
     };
 } // namespace lutop
